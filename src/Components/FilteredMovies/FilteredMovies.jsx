@@ -37,16 +37,16 @@ const FilteredMovies = () => {
     }
   }, [activeType]);
 
-  console.log(activeType)
-
   return (
     <Wrapper className="background-color mt-3 rounded-2xl p-5">
+
       <div className="flex items-center gap-5">
         <div className="max-md:w-full m-auto text-center">
           <ul className="block min-md:flex items-center gap-3 bg-gray-600 p-3 rounded min-md:rounded-full *:cursor-pointer">
             {moviesType.slice(0, 5).map((item, i) => {
               return (
                 <li
+                key={i}
                   onClick={() => setActiveType(item)}
                   className={`${
                     activeType === item ? "bg-white text-black" : ""
