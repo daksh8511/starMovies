@@ -22,7 +22,7 @@ const Profile = ({ onClose }) => {
           Email: {getDataFromLocalStorage[0].email}
         </h2>
         <div>
-          {getDataFromLocalStorage[0].movie.length === 0 && (
+          {getDataFromLocalStorage[0].movie.length === 0 ? (
             <div className="mt-4 text-center">
               <h2 className="font-bold">No More Movies In List</h2>
               <button
@@ -31,6 +31,12 @@ const Profile = ({ onClose }) => {
               >
                 <FaPlus />
               </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-3 gap-3">
+              {getDataFromLocalStorage[0].movie.map((data, i) => {
+                return <img className="w-full p-6" src={data} alt="" />;
+              })}
             </div>
           )}
         </div>
