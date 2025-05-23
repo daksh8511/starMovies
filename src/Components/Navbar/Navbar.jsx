@@ -26,7 +26,7 @@ const Navbar = ({ store, setStore }) => {
   return (
     <nav className="background-color p-3 rounded-b-2xl">
       <div className="flex items-center justify-between">
-        <img src={logo} className="w-23" alt="" />
+        <Link to={'/'}><img src={logo} className="w-23" alt="" /></Link>
 
         <form
           onSubmit={handleSubmit}
@@ -79,18 +79,19 @@ const Navbar = ({ store, setStore }) => {
                 }`}
               >
                 <ul className={`absolute w-full`}>
+                <li
+                    onClick={() => setShowProfile(true)}
+                    className="border px-6 py-2 rounded hover:bg-gray-600 hover:border-gray-600 cursor-pointer duration-100 flex capitalize items-center gap-2"
+                  >
+                    Profile
+                  </li>
                   <li
                     onClick={handleUserLogout}
                     className="border px-6 py-2 rounded hover:bg-gray-600 hover:border-gray-600 cursor-pointer duration-100 flex capitalize items-center gap-2"
                   >
                     Logout
                   </li>
-                  <li
-                    onClick={() => setShowProfile(true)}
-                    className="border px-6 py-2 rounded hover:bg-gray-600 hover:border-gray-600 cursor-pointer duration-100 flex capitalize items-center gap-2"
-                  >
-                    Profile
-                  </li>
+                  
                 </ul>
               </div>
             </div>

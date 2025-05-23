@@ -4,7 +4,7 @@ import Data from "../../../public/Data";
 
 import imdb from "/assets/imdb.png";
 
-const DetailsPage = () => {
+const DetailsPage = ({ myStore, setStore }) => {
   const { id } = useParams();
 
   const filterData = Data.filter((movie) => movie.id == id);
@@ -12,11 +12,24 @@ const DetailsPage = () => {
   const name = filterData[0].director[0];
   const repalceDirectorName = name.replace(" ", "+");
 
+  const handleWatchalater = (link) => {
+
+    const updatedUser = {
+      ...myStore[0],
+      movie: [...(myStore[0].movie || []), link],
+    };
+  
+    setStore([updatedUser]);
+  };
+
+  useEffect(() => {
+    localStorage.setItem('store', JSON.stringify(myStore))
+  }, [myStore])
 
   return (
     <div className="mt-3 background-color p-5 rounded-2xl">
       <div className="grid grid-cols-1 min-md:grid-cols-2 gap-6 items-center">
-      <div>
+        <div>
           <iframe
             className="rounded-2xl"
             src={filterData[0].trailer}
@@ -61,12 +74,12 @@ const DetailsPage = () => {
           </div>
 
           <button
+            onClick={() => handleWatchalater(filterData[0].poster)}
             className="mt-3 background-button-color px-5 py-2 cursor-pointer hover:bg-[#51217a]"
           >
             Watch Later
           </button>
         </div>
-       
       </div>
     </div>
   );

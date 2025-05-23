@@ -1,27 +1,36 @@
 import { GoogleGenAI } from "@google/genai";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { IoChatboxEllipses } from "react-icons/io5";
 
 const Gemini = () => {
   const [myInput, setInput] = useState("");
   const [activeChat, setChat] = useState(false);
   const [aiRes, setAIRes] = useState("");
+  const [submittedInput, setSubmittedInput] = useState("");
+
+
 
   const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
 
   async function main() {
     setAIRes("Loading");
-    const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash",
-      contents: myInput,
-      config: {
-        temperature: 0.1,
-        maxOutputTokens: 50,
-      },
-    });
-
-    textAnimation(response.text);
+    try {
+      const response = await ai.models.generateContent({
+        model: "gemini-2.0-flash",
+        contents: [{ role: "user", parts: [{ text: myInput }] }],
+        generationConfig: {
+          maxOutputTokens: 25,
+          temperature: 0.1,
+        },
+      });
+  
+      const text = response.candidates?.[0]?.content?.parts?.[0]?.text || "No response";
+      textAnimation(text);
+    } catch (err) {
+      setAIRes("Error: " + err.message);
+    }
   }
+  
 
   const textAnimation = (mytext) => {
     let index = 0;
@@ -37,7 +46,9 @@ const Gemini = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSubmittedInput(myInput);
     main();
+    setInput('')
   };
 
   return (
@@ -47,7 +58,7 @@ const Gemini = () => {
         className="flex items-center justify-between cursor-pointer"
       >
         <IoChatboxEllipses className="text-black" />
-        <h2 className="text-black font-bold">Need Help?</h2>
+        <h2 className="text-black font-bold">Ask Anything</h2>
       </div>
 
       <div
@@ -67,10 +78,10 @@ const Gemini = () => {
         </form>
 
         <div>
-          <h2 className="bg-gray-400 max-w-60 p-1 rounded mb-2">
+          <h2 className="bg-gray-400 max-w-60 p-1 rounded mb-2 max-h-100 overflow-scroll">
             {aiRes === "" ? "ask anything" : aiRes}
           </h2>
-          <h2 className="flex justify-end">{myInput}</h2>
+          <h2 className="flex justify-end">{submittedInput}</h2>
         </div>
       </div>
     </div>

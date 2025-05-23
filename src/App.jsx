@@ -10,13 +10,14 @@ const App = () => {
   const location = useLocation();
 
   const [myStore, setStore] = useState(() => {
-    const store = localStorage.getItem("store")
+    const store = localStorage.getItem("store");
     return store ? JSON.parse(store) : [];
-  })
+  });
 
   useEffect(() => {
-    localStorage.setItem("store", JSON.stringify(myStore))
-  },[myStore])
+    localStorage.setItem("store", JSON.stringify(myStore));
+  }, [myStore]);
+
 
   return (
     <div className="relative">
@@ -33,15 +34,16 @@ const App = () => {
       </div>
 
       <div className="container">
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/moviepage/:id" element={<DetailsPage />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route
+            path="/moviepage/:id"
+            element={<DetailsPage myStore={myStore} setStore={setStore} />}
+          />
+        </Routes>
       </div>
-
     </div>
   );
 };
