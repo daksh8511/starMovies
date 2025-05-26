@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { FaPlus } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const Profile = ({ onClose }) => {
   const getDataFromLocalStorage = JSON.parse(localStorage.getItem("store"));
 
   return (
-    <Wrapper className="fixed w-[98%] top-5 h-190 left-[50%] -translate-x-[50%] min-md:h-100 z-10 p-4 rounded">
+    <Wrapper className="fixed w-[98%] top-5 h-full  left-[50%] -translate-x-[50%] z-15 p-4 rounded">
       <button
         onClick={onClose}
         className="bg-black px-6 py-2 rounded flex ms-auto cursor-pointer"
@@ -33,7 +34,7 @@ const Profile = ({ onClose }) => {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 min-md:grid-cols-3 min-lg:grid-cols-5 gap-3 w-full h-50 min-md:h-150 min-lg:200">
               {getDataFromLocalStorage[0].movie.map((data, i) => {
                 return <img className="w-full p-6" src={data} alt="" />;
               })}

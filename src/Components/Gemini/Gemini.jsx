@@ -8,8 +8,6 @@ const Gemini = () => {
   const [aiRes, setAIRes] = useState("");
   const [submittedInput, setSubmittedInput] = useState("");
 
-
-
   const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
 
   async function main() {
@@ -78,7 +76,7 @@ const Gemini = () => {
         </form>
 
         <div>
-          <h2 className="bg-gray-400 max-w-60 p-1 rounded mb-2 max-h-100 overflow-scroll">
+          <h2 className="bg-gray-400 max-w-60 p-1 rounded mb-2 max-h-100 overflow-y-scroll">
             {aiRes === "" ? "ask anything" : aiRes}
           </h2>
           <h2 className="flex justify-end">{submittedInput}</h2>
