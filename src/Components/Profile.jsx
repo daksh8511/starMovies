@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { FaPlus } from "react-icons/fa6";
-import { Link } from "react-router-dom";
 
 const Profile = ({ onClose }) => {
   const getDataFromLocalStorage = JSON.parse(localStorage.getItem("store"));
